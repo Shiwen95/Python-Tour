@@ -6,16 +6,25 @@ class Solution:
         # write code here
         dummy = ListNode(0)
         dummy.next = head
+        
+        #key nodes include pre, start, end, start_next
+        #so that linked-list can be broken into 3 parts: pre(reversed already), middle(reversing), last(not reverse yet)
         pre, end = dummy, dummy
+        
         while end.next:
             for i in range(k):
                 if end: end = end.next
             if not end: break
+            #separate sub list
             start_next = end.next
             end.next = None
             start = pre.next
+            
+            #reverse list and change the link
             pre.next = self.reverseList(start)
             start.next = start_next
+            
+            #initiate key nodes
             pre, end = start, start
         return dummy.next
     
