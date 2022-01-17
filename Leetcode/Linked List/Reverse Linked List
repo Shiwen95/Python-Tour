@@ -15,6 +15,7 @@ class Solution:
             for i in range(k):
                 if end: end = end.next
             if not end: break
+            
             #separate sub list
             start_next = end.next
             end.next = None
