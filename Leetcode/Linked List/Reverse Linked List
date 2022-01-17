@@ -1,0 +1,29 @@
+#Reverse a linked list in a group of k nodes. If the number of remaining nodes is not a multiple of k, then keep it.
+#The spatial complexity is O(1), time complexity is O(n).
+
+class Solution:
+    def reverseKGroup(self , head: ListNode, k: int) -> ListNode:
+        # write code here
+        dummy = ListNode(0)
+        dummy.next = head
+        pre, end = dummy, dummy
+        while end.next:
+            for i in range(k):
+                if end: end = end.next
+            if not end: break
+            start_next = end.next
+            end.next = None
+            start = pre.next
+            pre.next = self.reverseList(start)
+            start.next = start_next
+            pre, end = start, start
+        return dummy.next
+    
+    def reverseList(self,start):
+        p = None
+        while start:
+            curr = start.next
+            start.next = p
+            p = start
+            start = curr
+        return p
