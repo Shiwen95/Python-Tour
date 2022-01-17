@@ -1,0 +1,39 @@
+## Given the head of a linked list, return the node where the cycle begins. If there is no cycle, return null.
+## There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to (0-indexed). It is -1 if there is no cycle. Note that pos is not passed as a parameter.
+
+class Solution:
+## Method 1:
+    def EntryNodeOfLoop(self, pHead):
+        # write code here
+        ls = [pHead]
+        while pHead:
+            pHead = pHead.next
+            if pHead in ls:
+                return pHead
+            ls.append(pHead)
+        return None
+        
+## Method 2: two ponters. "Slow" moves one each time while "fast" moves two each time. It has been proved that they must meet in the cycle of linked list.
+## If "slow" has moved j, then "fast" has moved 2j. While they meet, "fast" moves a multiple number of cycle more than "slow". Therefore, 2j = j + n*i which
+## can be j = n*i.
+## I make the "fast" return back to the beginning and both moves one each time. Once they meet again, they are at the entry point of the cycle.
+    def EntryNodeOfLoop(self, pHead):
+        if (pHead and pHead.next):
+            fast,slow = pHead,pHead
+        else:
+            return None
+
+        while fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                fast = pHead
+                while slow != fast:
+                    slow = slow.next
+                    fast = fast.next
+                return slow
+            if not fast:
+                return None
+        return None
+            
+            
