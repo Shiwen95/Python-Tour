@@ -1,0 +1,36 @@
+You are given the heads of two sorted linked lists list1 and list2.
+
+Merge the two lists in a one sorted list. The list should be made by splicing together the nodes of the first two lists.
+
+Return the head of the merged linked list.
+
+## method 1
+class Solution:
+    def mergeTwoLists(self, pHead1:ListNode, pHead2:ListNode) -> ListNode:
+        dummy = curr = ListNode(0)
+        while pHead1 and pHead2:
+            if pHead1.val < =  pHead2.val:
+                curr.next = pHead1
+                pHead1 = pHead1.next
+          
+            else:
+                curr.next = pHead2
+                pHead2 = pHead2.next
+                
+            curr = curr.next
+            
+        curr.next = pHead1 or pHead2
+        
+        return dummy.next
+        
+## method 2
+    def mergeTwoLists(self, pHead1:ListNode, pHead2:ListNode) -> ListNode:
+        if not (pHead1 and pHead2):
+            return pHead1 or pHead2
+        if pHead1.val <= pHead2.val:
+            pHead1.next = self.mergeTwoLists(pHead1.next,pHead2)
+            return pHead1
+        if pHead2.val <= pHead1.val:
+            pHead2.next = self.mergeTwoLists(pHead1,pHead2.next)
+            return pHead2
+        
