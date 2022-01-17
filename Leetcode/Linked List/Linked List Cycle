@@ -1,0 +1,45 @@
+Given head, the head of a linked list, determine if the linked list has a cycle in it.
+
+There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to. Note that pos is not passed as a parameter.
+
+Return true if there is a cycle in the linked list. Otherwise, return false.
+
+class Solution:
+## method 1: store nodes in list
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        if head: 
+            ls = [head]
+        else:
+            return False
+        
+        while head.next:
+            head = head.next
+            if head in ls:
+                return True
+            else:
+                ls.append(head)
+                
+        return False
+        
+## method 2: 
+## "Fast" would go ahead "slow" and their distance would increase 1 each move. In other words, their distance in a cycle would decrease 1 each move. 
+## Obviously, "fast" would reach cycle earlier than "slow". Once "slow" reach the cycle, the chase begin. "Fast" would become 1 node closer to "slow" each move.
+## In extreme cases, if the cycle has n length, "fast" would spend n-1 to keep up with "slow". 
+## Therefore, "slow" never go through the entire cycle before "slow" and "fast" meet. It proves that the time complexity is n.
+
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        if head:
+            slow, fast = head, head
+        else:
+            return False
+        
+        while fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if not fast:
+                return false
+            if slow == fast:
+                return True
+        return False
+        
+        
