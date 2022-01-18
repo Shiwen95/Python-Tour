@@ -1,4 +1,4 @@
-Given the head of a linked list, remove the N-th node from the end of the list and return its head.
+## Given the head of a linked list, remove the N-th node from the end of the list and return its head.
 ## Extreme cases: 1.head is None (n=0); 2.n=1; 3.N-th node refers to the first node; 4.2&3
 
 class Solution:
