@@ -1,0 +1,50 @@
+## Given the head of a linked list, remove the N-th node from the end of the list and return its head.
+## Extreme cases: 1.head is None (n=0); 2.n=1; 3.N-th node refers to the first node; 4.2&3
+
+class Solution:
+## Method 1:
+    def removeNthFromEnd(self , head: ListNode, n: int) -> ListNode:
+        # write code here
+        #Extreme cases 1
+        if not head:
+            return head
+        hashtable = {}
+        pre = head
+        i = 0
+        while head:
+            hashtable[i] = head
+            head = head.next
+            i += 1
+        if i-n-1 in hashtable:
+            #Extreme cases 2
+            hashtable[i-n-1].next = hashtable[i-n].next
+        else:
+            #Extreme cases 3
+            pre = hashtable[i-n].next
+        return pre
+
+## time complexity = O(n)
+## space complexity = O(1)
+        
+## Method 2:
+## Two pointers: fast and slow
+    def removeNthFromEnd(self , head: ListNode, n: int) -> ListNode:
+        if not head:
+            return head
+        dummy = ListNode(0)
+        dummy.next = head
+        pre, curr = dummy, dummy
+        for i in range(n):
+            curr = curr.next
+        
+        while curr.next:
+            curr = curr.next
+            pre = pre.next
+            
+        #skip the N-th node    
+        pre.next = pre.next.next
+        
+        return dummy.next
+        
+## time complexity = O(n) 0<=n<=1000, n<= length of list
+## space complexity = O(1)
