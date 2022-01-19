@@ -1,0 +1,30 @@
+You are given two non-empty linked lists representing two non-negative integers. The most significant digit comes first and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
+
+#Extreme cases: 1.different lengths 2.curr !=0 while head1 and head2 is None.
+
+class Solution:
+    def addInList(self , head1: ListNode, head2: ListNode) -> ListNode:
+        # write code here
+        #reverseList
+        head1 = self.reverseList(head1)
+        head2 = self.reverseList(head2)
+        curr = 0
+        dummy = None
+        while (head1 or head2 or curr):
+            if head1: curr, head1 = head1.val + curr, head1.next 
+            if head2: curr, head2 = head2.val + curr, head2.next 
+            curr,val = divmod(curr,10)
+            current = ListNode(val)
+            current.next = dummy
+            dummy = current
+            
+        return dummy
+        
+    def reverseList(self , head):
+        pre = None
+        while head:
+            curr = head.next
+            head.next = pre
+            pre = head
+            head = curr
+        return pre
