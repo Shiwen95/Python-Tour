@@ -1,0 +1,36 @@
+## Given the heads of two singly linked-lists headA and headB, return the node at which the two lists intersect. If the two linked lists have no intersection at all, return null.
+
+# Method 1:
+class Solution:
+    def FindFirstCommonNode(self , pHead1 , pHead2 ):
+        # write code here
+        if not (pHead1 and pHead2):
+            return None
+        ls = []
+        while pHead1:
+            ls.append(pHead1)
+            pHead1 = pHead1.next
+            
+        while pHead2:
+            if pHead2 in ls:
+                return pHead2
+            pHead2 = pHead2.next
+            
+        return None
+
+## time complexity = O(n)
+## space complexity = O(1)
+
+# Method 2:
+# When "A" and "B" meet, they have moved the same distance a+b-c.
+class Solution:
+    def FindFirstCommonNode(self , pHead1 , pHead2 ):
+        A, B = pHead1, pHead2
+        while A!=B:
+            A = A.next if A else pHead2
+            B = B.next if B else pHead1
+            
+        return A
+        
+## time complexity = O(n)
+## space complexity = O(1)
