@@ -28,3 +28,27 @@ class Solution:
             pre = head
             head = curr
         return pre
+        
+Class Solution: 
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        s1, s2 = [], []
+        while l1:
+            s1.append(l1.val)
+            l1 = l1.next      
+        while l2:
+            s2.append(l2.val)
+            l2 = l2.next
+        flag = 0
+        tem = None
+        while s1 or s2 or flag:
+            i = s1.pop() if s1 else 0
+            j = s2.pop() if s2 else 0
+            val = i + j + flag
+            val, flag = divmod(val,10)
+            res = ListNode(val)
+            res.next = tem
+            tem = res 
+        return res
+        
+  ## time complexity:O(max(m,n))
+  ## space complexity:O(m+n)
