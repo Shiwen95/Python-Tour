@@ -1,0 +1,35 @@
+## You are given an array of k linked-lists lists, each linked-list is sorted in ascending order.
+
+## Merge all the linked-lists into one sorted linked-list and return it.
+
+class Solution:
+    def mergeKLists(self , lists: List[ListNode]) -> ListNode:
+        # write code here
+        carry = []
+        for ls in lists:
+            while ls:
+                carry.append(ls.val)
+                ls = ls.next
+        carry.sort()
+        dummy = curr = ListNode(0)
+        for c in carry:
+            curr.next = ListNode(c)
+            curr = curr.next
+        return dummy.next
+        
+ 
+ ## import heapq
+    def mergeKLists(self , lists: List[ListNode]) -> ListNode:
+        # write code here
+        import heapq
+        minheap = []
+        for ls in lists:
+            while ls:
+                heapq.heappush(minheap,ls.val)
+                ls = ls.next
+        dummy = curr = ListNode(0)
+        while minheap:
+            #pop up minimum value of minheap
+            curr.next = ListNode(heapq.heappop(minheap))
+            curr = curr.next
+        return dummy.next
