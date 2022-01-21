@@ -8,3 +8,17 @@ class Solution:
         index, mod = divmod(len(Ls),2)
         
         return (Ls[index-1+mod]+Ls[index])/2
+        
+## time complexity = O(mlogn)
+## space complexity = O(m+n)
+        
+import heapq
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        Ls = list(heapq.merge(nums1, nums2))
+        n = len(Ls)
+        mid, mod = divmod(n, 2)
+        return (Ls[index-1+mod]+Ls[index])/2
+        
+## time complexity = O(mlogn)
+## space complexity = O(m+n)
+        
