@@ -1,0 +1,22 @@
+
+
+
+
+
+
+class Solution:
+    def merge(self , A, m, B, n):
+        # write code here
+        index = 0
+        for i,b in enumerate(B):
+            while index < m+i:
+                if A[index] >= b:
+                    break
+                index += 1
+            A.insert(index, b)
+            A.pop()
+            
+            
+    def merge(self , A, m, B, n):
+        A[m:m+n] = B
+        return A.sort()
