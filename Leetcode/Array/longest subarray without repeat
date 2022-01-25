@@ -1,0 +1,18 @@
+class Solution:
+    def maxLength(self , arr: List[int]) -> int:
+        # write code here
+        n = len(arr)
+        left = 0
+        right = 0
+        maxlen = 0
+        l = {}
+        while right < n:
+            if arr[right] not in l:
+                l[arr[right]] = right
+                right += 1
+            else:
+                maxlen = max(right - left,maxlen)
+                l.pop(arr[left])
+                left += 1
+        maxlen = max(right - left,maxlen)
+        return maxlen
