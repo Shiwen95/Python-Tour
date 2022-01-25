@@ -1,0 +1,21 @@
+## The majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.
+
+class Solution:
+## Method 1:
+    def MoreThanHalfNum_Solution(self , numbers: List[int]) -> int:
+        # write code here
+        numbers.sort()
+        n = len(numbers)
+        for i in range(n//2 + 1):
+            if numbers[i] == numbers[n-1-i]:
+                return numbers[i]
+                
+ ## Method 2:        
+    def MoreThanHalfNum_Solution(self, numbers):
+        # write code here
+        if numbers == []:
+            return None
+        #对数组排序
+        numbers.sort()
+        #返回中间位置所在数字即所求
+        return numbers[len(numbers)//2]
