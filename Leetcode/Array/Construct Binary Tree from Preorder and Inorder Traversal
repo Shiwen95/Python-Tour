@@ -1,0 +1,11 @@
+## Given two integer arrays preorder(前序） and inorder（中序） where preorder is the preorder traversal of a binary tree and inorder is the inorder traversal of the same tree, construct and return the binary tree.
+
+class Solution:
+    def reConstructBinaryTree(self , pre: List[int], vin: List[int]) -> TreeNode:
+        # write code here
+        if len(pre)>0:
+            root = TreeNode(pre[0])
+            root_index = vin.index(pre[0])
+            root.left = self.reConstructBinaryTree(pre[1:1+root_index], vin[:root_index])
+            root.right = self.reConstructBinaryTree(pre[root_index+1:], vin[root_index+1:])
+            return root
