@@ -1,0 +1,56 @@
+#Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+
+#Notice that the solution set must not contain duplicate triplets.
+
+class Solution:
+    def threeSum(self , num: List[int]) -> List[List[int]]:
+        # write code here
+        n = len(num)
+        if n<3:
+            return []
+        num.sort()
+        res = []
+        checki = None
+        for i in range(n):
+            if num[i] > 0:
+                break
+            if checki == num[i]:
+                continue
+            checki = num[i]
+            checkj = None
+            for j in range(i+1,n):
+                if - num[i] - num[j] < num[j]:
+                    break
+                if num[j] == checkj:
+                    continue
+                if 0-num[i]-num[j] in num[j+1:]:
+                    res.append([num[i],num[j],0-num[i]-num[j]])
+                checkj = num[j]
+        return res
+        
+    def threeSum(self, num: List[int]) -> List[List[int]]:
+        n = len(num)
+        if n < 3:
+            return []
+        num.sort()
+        res = []
+        for i in range(n-2):
+            if num[i] > 0:
+                break
+            if i>0 and num[i-1] == num[i]:
+                continue
+            z = n-1
+            for j in range(i+1,n-1):
+                if j == z:
+                    break
+                if - num[i] - num[j] < num[j]:
+                    break
+                if j>i+1 and num[j] == num[j-1]:
+                    continue
+                while num[i] + num[j] + num[z] > 0 and z > j+1:
+                    z -= 1
+                if num[i] + num[j] + num[z] == 0:
+                    res.append([num[i],num[j],num[z]])
+        return res
+        
+    
