@@ -1,0 +1,14 @@
+#The Fibonacci numbers, commonly denoted F(n) form a sequence, called the Fibonacci sequence, such that each number is the sum of the two preceding ones, starting from 0 and 1.
+
+
+
+Class Solution:
+    def Fibonacci(self , n: int) -> int:
+        # save the results
+        import functools
+        @functools.lru_cache()
+        def Fib(n):
+            if n <= 2:
+                return 1
+            return Fib(n-1) + Fib(n-2)
+        return Fib(n)
