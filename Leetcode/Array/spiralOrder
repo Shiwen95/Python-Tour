@@ -1,0 +1,45 @@
+class Solution:
+## Method 1:
+    def spiralOrder(self , matrix: List[List[int]]) -> List[int]:
+        # write code here
+        if not matrix:
+            return matrix
+        i, j = 0, 0
+        row = len(matrix)
+        col = len(matrix[0])
+        top,bottom,left,right = 0,row-1,0,col-1
+        res = [matrix[0][0]]
+        while True:
+            while j < right:
+                j += 1
+                i = top
+                res.append(matrix[i][j])
+            top += 1
+            if top > bottom: break
+            while i < bottom:
+                i += 1
+                j = right
+                res.append(matrix[i][j])
+            right -= 1
+            if left > right: break
+            while j > left:
+                j -= 1
+                i = bottom
+                res.append(matrix[i][j])
+            bottom -= 1
+            if top > bottom: break
+            while i > top:
+                i -= 1
+                j = left
+                res.append(matrix[i][j])
+            left += 1
+            if left > right: break
+        return res
+## Method 2:
+    def spiralOrder(self , matrix: List[List[int]]) -> List[int]:
+        # write code here
+        res = []
+        while matrix:
+            res += matrix[0]
+            matrix = list(zip(*matrix[1:]))[::-1]
+        return res
