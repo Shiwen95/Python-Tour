@@ -1,0 +1,31 @@
+## Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.
+
+
+
+class Solution:
+    def merge(self , intervals: List[Interval]) -> List[Interval]:
+        # write code here
+        n = len(intervals)
+        if n <= 1:
+            return intervals
+        merge = []
+        intervals = sorted(intervals, key = lambda interval: interval.start)
+        merge.append(intervals[0])
+        for interval in intervals[1:]:
+            if interval.start > merge[-1].end:
+                merge.append(interval)
+            else:
+                merge[-1].end = max(merge[-1].end,interval.end)
+        return merge
+        
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        if not intervals: return []
+        intervals.sort()
+        res = [intervals[0]]
+        for x, y in intervals[1:]:
+            if res[-1][1] < x:
+                res.append([x, y])
+            else:
+                res[-1][1] = max(y, res[-1][1])
+        return res
