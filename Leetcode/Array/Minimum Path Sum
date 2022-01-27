@@ -1,0 +1,22 @@
+## Given a m x n grid filled with non-negative numbers, find a path from top left to bottom right, which minimizes the sum of all numbers along its path.
+## Note: You can only move either down or right at any point in time.
+
+# calculate the minimum sum in each cell by adding the mimimum value between left cell and right cell
+# store minimum sum in matrix directly
+
+class Solution:
+    def minPathSum(self , matrix: List[List[int]]) -> int:
+        # write code here
+        row = len(matrix)
+        col = len(matrix[0])
+        for i in range(row):
+            for j in range(col):
+                if j == 0 and i == 0:
+                    continue
+                elif j == 0:
+                    matrix[i][j] += matrix[i-1][j]
+                elif i == 0:
+                    matrix[i][j] += matrix[i][j-1]
+                else:
+                    matrix[i][j] += min(matrix[i-1][j],matrix[i][j-1])
+        return matrix[-1][-1]
