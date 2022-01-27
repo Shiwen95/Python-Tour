@@ -1,0 +1,33 @@
+## You are given an array prices where prices[i] is the price of a given stock on the ith day.
+## You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
+## Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
+
+class Solution:
+    def maxProfit(self , prices: List[int]) -> int:
+        # write code here
+        if len(prices)<=1:
+            return 0
+        dict = []
+        for i,start in enumerate(prices[:-1]):
+            dict.append(max(prices[i+1:]) - start)
+        res = max(dict)
+        if res < 0:
+            return 0
+        else:
+            return res
+            
+## Dynamic programming： 
+## The parameter minsell would always remember the lowest price before. While the parameter maxpro enables the calculation of difference between current sell-out prices and the lowest ever buy-in price. 
+    def maxProfit(self, prices: List[int]) -> int:
+        if not prices:
+            return 0
+        n = len(prices)
+        for i in range(n):
+            if i == 0:
+                maxpro = 0
+                minsell = prices[0]
+            else:
+                maxpro = max (maxpro,prices[i]-minsell)
+                minsell = min (prices[i],minsell)
+        
+        return maxpro
