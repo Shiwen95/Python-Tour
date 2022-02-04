@@ -1,0 +1,124 @@
+https://leetcode-cn.com/problems/sort-an-array/solution/pai-xu-shu-zu-by-leetcode-solution/
+
+## 快速排序 quicksort
+class Solution:
+    def randomized_partition(self, nums, l, r):
+        pivot = random.randint(l, r)
+        nums[pivot], nums[r] = nums[r], nums[pivot]
+        i = l - 1
+        for j in range(l, r):
+            if nums[j] < nums[r]:
+                i += 1
+                nums[j], nums[i] = nums[i], nums[j]
+        i += 1
+        nums[i], nums[r] = nums[r], nums[i]
+        return i
+
+    def randomized_quicksort(self, nums, l, r):
+        if r - l <= 0:
+            return
+        mid = self.randomized_partition(nums, l, r)
+        self.randomized_quicksort(nums, l, mid - 1)
+        self.randomized_quicksort(nums, mid + 1, r)
+
+    def sortArray(self, nums: List[int]) -> List[int]:
+        self.randomized_quicksort(nums, 0, len(nums) - 1)
+        return nums
+
+## time complexity: O(nlogn)
+## space complexity: O(logn) 递归的层数
+
+
+## 堆排序 heap sort
+class Solution:
+    def max_heapify(self, heap, root, heap_len):
+        p = root
+        while p * 2 + 1 < heap_len:
+            l, r = p * 2 + 1, p * 2 + 2
+            if heap_len <= r or heap[r] < heap[l]:
+                nex = l
+            else:
+                nex = r
+            if heap[p] < heap[nex]:
+                heap[p], heap[nex] = heap[nex], heap[p]
+                p = nex
+            else:
+                break
+        
+    def build_heap(self, heap):
+        for i in range(len(heap) - 1, -1, -1):
+            self.max_heapify(heap, i, len(heap))
+
+    def heap_sort(self, nums):
+        self.build_heap(nums)
+        for i in range(len(nums) - 1, -1, -1):
+            nums[i], nums[0] = nums[0], nums[i]
+            self.max_heapify(nums, 0, i)
+            
+    def sortArray(self, nums: List[int]) -> List[int]:
+        self.heap_sort(nums)
+        return nums
+
+## time complexity: O(nlogn)
+## space complexity: O(logn) 
+
+## 冒泡排序bubble sort 
+def bubble_sort(nums):
+    n = len(nums)
+    # 进行多次循环
+    for c in range(n):
+        for i in range(1, n - c):
+            if nums[i - 1] > nums[i]:
+                nums[i - 1], nums[i] = nums[i], nums[i - 1]
+    return nums
+## time complexity: O(n^2)
+
+## 插入排序insertion sort
+def insertion_sort(nums):
+    n = len(nums)
+    for i in range(1, n):
+        while i > 0 and nums[i - 1] > nums[i]:
+            nums[i - 1], nums[i] = nums[i], nums[i - 1]
+            i -= 1
+    return nums
+
+## 希尔排序 shell sort
+def shell_sort(nums):
+    n = len(nums)
+    gap = n // 2
+    while gap:
+        for i in range(gap, n):
+            while i - gap >= 0 and nums[i - gap] > nums[i]:
+                nums[i - gap], nums[i] = nums[i], nums[i - gap]
+                i -= gap
+        gap //= 2
+    return nums
+    
+## 归并排序 mergesort
+def merge_sort(nums):
+    if len(nums) <= 1:
+        return nums
+    mid = len(nums) // 2
+    # 分
+    left = merge_sort(nums[:mid])
+    right = merge_sort(nums[mid:])
+    # 合并
+    return merge(left, right)
+
+
+def merge(left, right):
+    res = []
+    i = 0
+    j = 0
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            res.append(left[i])
+            i += 1
+        else:
+            res.append(right[j])
+            j += 1
+    res += left[i:]
+    res += right[j:]
+    return res
+
+
