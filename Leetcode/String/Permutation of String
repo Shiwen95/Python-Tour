@@ -23,3 +23,27 @@ class Solution:
         if len(s) <= 1:
             return [s]
         return list(set(s[i] + perm for i in range(len(s)) for perm in self.permutation(s[:i] + s[i+1:])))
+        
+        
+        
+class Solution:
+    def Permutation(self , str: str) -> List[str]:
+        # write code here
+        data = list(str)
+        res = data.copy()
+        max_len = len(data)
+        for _ in range(max_len-1):
+            res = self.createstring(res, data)
+        return list(set(res))
+        
+    def createstring(self, res, data):
+        ne = []
+        for p in res:
+            options = data.copy()
+            for i in list(p):
+                options.remove(i)
+            n = len(options)
+            for _ in range(n):
+                ne.append(p + options[_])
+        res = ne
+        return res
