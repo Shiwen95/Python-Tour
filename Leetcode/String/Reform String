@@ -1,0 +1,15 @@
+# reverse the order of the words separated by spaces in this string, while reversing the case of each character.
+
+class Solution:
+    def trans(self , s: str, n: int) -> str:
+        # write code here
+        ls = s.split(' ')
+        ls.reverse()
+        for i,string in enumerate(ls):
+            restr = ''
+            for char in string:
+                if char.isupper(): restr += char.lower()
+                if char.islower(): restr += char.upper()
+            else:
+                ls[i] = restr
+        return ' '.join(ls)
