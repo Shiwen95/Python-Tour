@@ -1,0 +1,39 @@
+## 问题描述：数独（Sudoku）是一款大众喜爱的数字逻辑游戏。玩家需要根据9X9盘面上的已知数字，推算出所有剩余空格的数字，并且满足每一行、每一列、每一个3X3粗线宫内的数字均含1-9，并且不重复。
+
+class Solution:
+    def isValue(self,board,x,y):
+        for k in range(9):
+            if k != x and board[k][y] == board[x][y]:
+                return False
+            if k != y and board[x][k] == board[x][y]:
+                return False
+        m, n = x//3*3, y//3*3
+        for i in range(m,m+3):
+            for j in range(n,n+3):
+                if (i!= x or j!=y) and board[i][j] == board[x][y]:
+                    return False
+        return True
+    def dfs(self,board):
+        for i in range(9):
+            for j in range(9):
+                if board[i][j] == 0:
+                    for k in '123456789':
+                        board[i][j] = int(k)
+                        if self.isValue(board,i,j) and self.dfs(board):
+                            return True
+                        board[i][j] = 0
+                    return False
+        return True
+
+while True:
+    try:
+        board = []
+        for i in range(9):
+            board.append(list(map(int,input().split(' '))))
+        s = Solution()
+        s.dfs(board)
+        for i in range(9):
+            board[i] = list(map(str,board[i]))
+            print(' '.join(board[i]))
+    except:
+        break
