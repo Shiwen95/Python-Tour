@@ -1,0 +1,76 @@
+#描述
+#输入int型数组，询问该数组能否分成两组，使得两组中各元素加起来的和相等，并且，所有5的倍数必须在其中一个组中，所有3的倍数在另一个组中（不包括5的倍数），不是5的倍数也不是3的倍数能放在任意一组，可以将数组分为空数组，能满足以上条件，输出true；不满足时输出false。
+#本题含有多组样例输入。
+#数据范围：每个数组大小满足 1 \le n \le 50 \1≤n≤50  ，输入的数据大小满足 |val| \le 500 \∣val∣≤500 
+#输入描述：
+#第一行是数据个数，第二行是输入的数据
+#输出描述：
+#返回true或者false
+
+def pickn(ls,n):
+    if n == 0:
+        return [0]
+    return [ls[i] + j for i in range(len(ls)) for j in pickn(ls[i+1:],n-1)]
+
+while True:
+    try:
+        n = int(input())
+        ls = input().split(' ')
+        while len(ls) != n:
+            ls.remove('')
+        ls = list(map(int,ls))
+        group1 = 0
+        group2 = 0
+        either = []
+        for l in ls:
+            if l%5 == 0:
+                group1 += l
+            elif l%3 == 0:
+                group2 += l
+            else:
+                either.append(l)
+        summ = sum(either)
+        flag = 0
+        for i in range(len(either)+1):
+            resn = pickn(either,i)
+            for res in resn:
+                if (group1 + res) == (group2 + summ - res):
+                    print('true')
+                    flag = 1
+                    break
+            if flag == 1:
+                break
+        else:
+             print('false')
+    except:
+        break
+        
+## Method 2:
+def dfs(three, five, other):
+    if not other:
+        if three == five:
+            return True
+        else:
+            return False
+    if dfs(three+other[0], five, other[1:]):
+        return True
+    if dfs(three, five+other[0], other[1:]):
+        return True
+while True:
+    try:
+        #注意分隔空格时不用写‘ ’， 这样能自动去掉空字符串.
+        n, nums = int(input()), list(map(int, input().split()))
+        three, five, other = 0, 0, []
+        for num in nums:
+            if num % 3 == 0:
+                three += num
+            elif num % 5 == 0:
+                five += num
+            else:
+                other.append(num)
+        if dfs(three, five, other):
+            print ('true')
+        else:
+            print ('false')
+    except:
+        break
