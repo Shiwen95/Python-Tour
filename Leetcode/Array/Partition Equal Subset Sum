@@ -1,0 +1,39 @@
+#给定一个非负数组，是否可以将其分成两个和相等的子数组。
+
+class Solution:
+    def canPartition(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        sum_all = sum(nums)
+        if sum_all % 2:
+        	return False
+        target = sum_all // 2
+        dp = [0 for i in range(sum_all + 1)]
+        dp[0] = 1
+        for num in nums:
+        	for i in range(target, -1, -1):
+        		if dp[i]:
+        			dp[i + num] = 1
+                if dp[target] == 1:
+                        return True
+        return False
+
+def isPar(nums,sum1,sum2):
+    if not nums:
+        if sum1 == sum2:
+            return True
+    if isPar(nums[1:],sum1+nums[0],sum2):
+        return True
+    if isPar(nums[1:],sum1,sum2+nums[0]):
+        return True
+
+## Method 2
+class Solution:
+    def canPartition(self, nums):
+        sum_all = sum(nums)
+        if sum_all % 2:
+        	return False
+        target = sum_all // 2
+    
